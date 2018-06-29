@@ -37,11 +37,13 @@ app.use((req, res, next) => {
 });
 
 // Routes Imports
-const authRoutes = require('./routes/auth.routes');
-const todoRoutes = require('./routes/todos.routes');
+const authRoutes = require('./routes/auth.routes'),
+    todoRoutes = require('./routes/todos.routes');
+
+const checkAuth = require('./middleware/check-auth');
 
 // Routing Config
 app.use('/api/auth', authRoutes)
-app.use('/api/todos', todoRoutes);
+app.use('/api/todos', checkAuth, todoRoutes);
 
 module.exports = app;

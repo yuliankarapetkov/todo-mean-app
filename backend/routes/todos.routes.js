@@ -1,23 +1,37 @@
 const express = require('express'),
     router = express.Router();
 
-router.get('/', (req, res, next) => {
+const User = require('../models/user'),
+    Todo = require('../models/todo');
+
+router.get('/', (req, res) => {
+    res.status(200).send(req.userId);
+});
+
+router.get('/:id', (req, res) => {
     res.status(200).send();
 });
 
-router.get('/:id', (req, res, next) => {
+router.post('/', (req, res) => {
+    const todo = new Todo({
+        description: req.body.description,
+        user: req.userId
+    });
+
+    todo.save()
+        .then(savedTodo => {
+            res.status(201).json(savedTodo);
+        })
+        .catch(error => {
+            res.status(500).json({ error: error });
+        });
+});
+
+router.put('/:id', (req, res) => {
     res.status(200).send();
 });
 
-router.post('/', (req, res, next) => {
-    res.status(200).send();
-});
-
-router.put('/:id', (req, res, next) => {
-    res.status(200).send();
-});
-
-router.delete('/:id', (req, res, next) => {
+router.delete('/:id', (req, res) => {
     res.status(200).send();
 });
 
