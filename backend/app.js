@@ -1,10 +1,13 @@
 const express = require('express'),
     app = express();
 
-// Dependencies
+// External Dependencies
 const mongoose = require('mongoose'),
     bodyParser = require('body-parser'),
     morgan = require('morgan');
+
+// Routes
+const todoRoutes = require('./routes/todos.routes');
 
 // Config
 app.use(morgan('dev'));
@@ -24,8 +27,7 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/', (req, res, next) => {
-    res.send('Hello from the backend');
-});
+// Routing Config
+app.use('/api/todos', todoRoutes);
 
 module.exports = app;
