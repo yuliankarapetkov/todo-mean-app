@@ -1,0 +1,62 @@
+@import 'variables';
+@import 'media-queries';
+
+.container {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 780px;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+@mixin button() {
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+.button {
+    @include button();
+
+    height: 50px;
+    padding: 4px 16px;
+
+    background: $primary-color;
+    color: $secondary-color;
+
+    border-radius: 2px;
+
+    &:hover {
+        background-color: $dark-primary-color;
+    }
+}
+
+@mixin circButton($diameter) {
+    @include button();
+
+    height: $diameter;
+    width: $diameter;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+@mixin placeholderColor($color) {
+    &::-webkit-input-placeholder {
+        color: $color;
+    }
+    &::-moz-placeholder {
+        color: $color;
+    }
+    &:-ms-input-placeholder {
+        color: $color;
+    }
+    &:-moz-placeholder {
+        color: $color;
+    }
+}
+
+@include mediumDevice() {
+    .button {
+        height: 40px;
+    }
+}

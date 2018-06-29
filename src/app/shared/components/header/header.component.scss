@@ -1,0 +1,77 @@
+@import 'variables';
+@import 'media-queries';
+
+.header {
+    height: 40px;
+    line-height: 40px;
+    background-color: $dark-primary-color;
+    color: $secondary-color;
+
+    &__content {
+        display: flex;
+    }
+
+    a {
+        &:link,
+        &:visited {
+            color: $secondary-color;
+        }
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    &__content-left {
+        display: flex;
+
+        .brand {
+            font-size: 14px;
+        }
+
+        .info {
+            display: flex;
+
+            margin-left: 6px;
+
+            &__content {
+                margin-left: 6px;
+                font-size: 10px;
+            }
+        }
+    }
+
+    &__content-right {
+        margin-left: auto;
+        display: flex;
+
+        .sign-out-button {
+            font-size: 12px;
+            cursor: pointer;
+            margin-right: 6px;
+        }
+
+        .github {
+            margin-left: 6px;
+
+            &:link .fab,
+            &:visited .fab {
+                color: $secondary-color;
+            }
+
+            &:hover .fab {
+                color: $light-primary-color;
+            }
+        }
+    }
+}
+
+@include mediumDevice() {
+    .header {
+        &__content-left {
+            .info {
+                display: none;
+            }
+        }
+    }
+}

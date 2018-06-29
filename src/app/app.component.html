@@ -1,0 +1,8 @@
+<div class="app">
+    <app-header
+        [isAuthenticated]="isAuthenticated$ | async"
+        (signOutClicked)="onSignOutClicked()">
+    </app-header>
+
+    <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,45 @@
+@import 'variables';
+@import 'media-queries';
+
+.todos {
+    &__header {
+        background-color: $primary-color;
+        padding: 120px 0 60px;
+        box-shadow: 0 2px 6px rgba(0,0,0,.2);
+    }
+
+    &__content {
+        .todos-list {
+            margin-top: 60px;
+
+            &__empty,
+            &__loading {
+                font-size: 24px;
+                color: $secondary-text;
+            }
+
+            &__loading {
+                text-align: center;
+            }
+        }
+    }
+}
+
+@include mediumDevice() {
+    .todos {
+        &__header {
+            padding: 80px 0 40px;
+        }
+
+        &__content {
+            .todos-list {
+                margin-top: 40px;
+
+                &__empty,
+                &__loading {
+                    font-size: 18px;
+                }
+            }
+        }
+    }
+}

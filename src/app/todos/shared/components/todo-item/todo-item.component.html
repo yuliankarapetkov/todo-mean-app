@@ -1,0 +1,45 @@
+<div class="todo-item" *ngIf="isEditing; else isReading">
+    <div class="todo-item__col">
+    </div>
+    <div class="todo-item__col">
+        <div class="todo-item__description">
+            <form [formGroup]="todoForm" (submit)="submitForm()">
+                <input
+                    formControlName="description"
+                    type="text"
+                    (blur)="toggleIsEditing()">
+            </form>
+        </div>
+    </div>
+    <div class="todo-item__col">
+        <button (click)="toggleIsEditing()" class="todo-item__button">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+</div>
+
+<ng-template #isReading>
+    <div class="todo-item">
+        <div class="todo-item__col">
+            <button
+                (click)="toggleIsCompleted()"
+                class="todo-item__button"
+                [class.active]="item.isCompleted">
+                <i class="fas fa-check"></i>
+            </button>
+        </div>
+        <div class="todo-item__col">
+            <div class="todo-item__description">
+                {{ item.description }}
+            </div>
+        </div>
+        <div class="todo-item__col">
+            <button (click)="removeItem()" class="todo-item__button">
+                <i class="fas fa-trash"></i>
+            </button>
+            <button (click)="toggleIsEditing()" class="todo-item__button">
+                <i class="fas fa-pen"></i>
+            </button>
+        </div>
+    </div>
+</ng-template>

@@ -1,0 +1,49 @@
+@import 'elements';
+@import 'media-queries';
+
+.todo-form {
+    &__form {
+        display: flex;
+    }
+
+    &__input {
+        outline: none;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+
+        @include placeholderColor($light-primary-color);
+        color: $secondary-color;
+        border-bottom: 1px solid $light-primary-color;
+
+        height: 50px;
+        font-size: 28px;
+        font-weight: 300;
+        margin-top: -1px;
+        padding: 0 0 5px 0;
+
+        flex: 1;
+
+        &:focus {
+            @include placeholderColor($secondary-color);
+            border-bottom: 2px solid $secondary-color;
+            margin-top: -2px;
+            padding-left: 5px;
+
+            font-size: 32px;
+            transition: all .2s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+    }
+}
+
+@include mediumDevice() {
+    .todo-form {
+        &__input {
+            font-size: 20px;
+
+            &:focus {
+                font-size: 24px;
+            }
+        }
+    }
+}

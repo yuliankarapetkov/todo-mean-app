@@ -1,0 +1,9 @@
+<div class="todo-form">
+    <form [formGroup]="todoForm" class="todo-form__form" (submit)="submitForm()">
+        <input
+            formControlName="description"
+            class="todo-form__input"
+            type="text"
+            placeholder="What needs to be done?" />
+    </form>
+</div>
