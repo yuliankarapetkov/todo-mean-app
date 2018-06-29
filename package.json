@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "start:server": "nodemon ./backend/server.js"
+    "start:server": "nodemon ./backend/server.js --config ./backend/nodemon.json"
   },
   "private": true,
   "dependencies": {

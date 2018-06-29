@@ -8,6 +8,13 @@
 # dependencies
 /node_modules
 
+# env
+/backend/nodemon.json
+nodemon.json
+
+# db config
+/backend/db.config.js
+
 # IDEs and editors
 /.idea
 .project
