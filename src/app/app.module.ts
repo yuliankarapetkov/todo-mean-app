@@ -1,8 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import { MetaReducer, StoreModule } from '@ngrx/store';
+import { ActionReducer, MetaReducer, StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { RouterStateSerializer, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -21,16 +20,21 @@ import { SharedModule } from './shared/shared.module';
 // Components
 import { AppComponent } from './app.component';
 
-// Interceptors
-import { AuthInterceptor } from './shared/interceptors/auth/auth.interceptor';
-
 // Store
 import { CustomSerializer, reducers } from './store/reducers';
 import { effects } from './store/effects';
+import { localStorageSync } from 'ngrx-store-localstorage';
+
+function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
+    return localStorageSync({
+        keys: ['auth'],
+        rehydrate: true
+    })(reducer);
+}
 
 const metaReducers: MetaReducer<any>[] = !environment.production
-    ? [storeFreeze]
-    : [];
+    ? [localStorageSyncReducer, storeFreeze]
+    : [localStorageSyncReducer];
 
 const firebaseConfig = {
     apiKey: 'AIzaSyBcVXzqenWBA3l8ZTSFAmNyvAyMaGat1jo',
