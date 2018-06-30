@@ -17,19 +17,19 @@ export class TodosService {
         private http: HttpClient
     ) { }
 
-    getTodos(): Observable<any[]> {
+    getTodos(): Observable<Todo[]> {
         return this.http.get<any[]>(this.todosUrl);
     }
 
     addTodo(todo: Todo) {
-        return this.http.post<any>(this.todosUrl, todo);
+        return this.http.post<Todo>(this.todosUrl, todo);
     }
 
     updateTodo(id: string, todo: Todo) {
-        return this.http.put<any>(`${this.todosUrl}/${id}`, todo);
+        return this.http.put<Todo>(`${this.todosUrl}/${id}`, todo);
     }
 
     removeTodo(id: string) {
-        return this.http.delete<any>(`${this.todosUrl}/${id}`);
+        return this.http.delete(`${this.todosUrl}/${id}`);
     }
 }
