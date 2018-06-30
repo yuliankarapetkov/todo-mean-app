@@ -29,7 +29,7 @@
             </button>
         </div>
         <div class="todo-item__col">
-            <div class="todo-item__description">
+            <div class="todo-item__description" [class.completed]="item.isCompleted">
                 {{ item.description }}
             </div>
         </div>
