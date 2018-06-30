@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { map } from 'rxjs/operators';
-import { from, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { AngularFireDatabase } from 'angularfire2/database';
 
@@ -10,38 +9,34 @@ import { Todo } from '../../models';
 
 import { TodosSharedModule } from '../../shared.module';
 
+import { environment } from '../../../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
+
 @Injectable({
   providedIn: TodosSharedModule
 })
 export class TodosService {
-    private readonly dbPath = 'todos';
+    private readonly todosUrl = `${environment.apiUrl}/todos`;
 
     constructor(
         private database: AngularFireDatabase,
-        private authService: fromServices.AuthService
+        private authService: fromServices.AuthService,
+        private http: HttpClient
     ) { }
 
-    private get uid() {
-        return this.authService.user.uid;
-    }
-
     getTodos(): Observable<any[]> {
-        return this.database.list(`${this.dbPath}/${this.uid}`)
-            .snapshotChanges()
-            .pipe(
-                map(changes => changes.map(c => ({ ...c.payload.val(), key: c.payload.key })))
-            );
+        return this.http.get<any[]>(this.todosUrl);
     }
 
     addTodo(todo: Todo) {
-        return from(this.database.list(`${this.dbPath}/${this.uid}`).push(todo));
+        return this.http.post<any>(this.todosUrl, todo);
     }
 
     updateTodo(key: string, todo: Todo) {
-        return from(this.database.object(`${this.dbPath}/${this.uid}/${key}`).update(todo));
+        return this.http.put<any>(`${this.todosUrl}/${key}`, todo);
     }
 
     removeTodo(key: string) {
-        return from(this.database.list(`${this.dbPath}/${this.uid}`).remove(key));
+        return this.http.delete<any>(`${this.todosUrl}/${key}`);
     }
 }
