@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit {
     readonly rParkGithubUrl = 'https://github.com/r-park';
     readonly rParkAppUrl = 'https://ng2-todo-app.firebaseapp.com/';
     readonly authorGithubUrl = 'https://github.com/yuliankarapetkov'
-    readonly appGithubUrl = 'https://github.com/yuliankarapetkov/todo-app';
+    readonly appGithubUrl = 'https://github.com/yuliankarapetkov/todo-mean-app';
 
     showInfo = false;
 
