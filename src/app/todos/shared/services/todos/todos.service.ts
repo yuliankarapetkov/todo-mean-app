@@ -1,16 +1,11 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
-import { AngularFireDatabase } from 'angularfire2/database';
-
-import * as fromServices from '../../../../shared/services';
-import { Todo } from '../../models';
-
-import { TodosSharedModule } from '../../shared.module';
-
 import { environment } from '../../../../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { TodosSharedModule } from '../../shared.module';
+import { Todo } from '../../models';
 
 @Injectable({
   providedIn: TodosSharedModule
@@ -19,8 +14,6 @@ export class TodosService {
     private readonly todosUrl = `${environment.apiUrl}/todos`;
 
     constructor(
-        private database: AngularFireDatabase,
-        private authService: fromServices.AuthService,
         private http: HttpClient
     ) { }
 
