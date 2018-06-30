@@ -32,11 +32,11 @@ export class TodosService {
         return this.http.post<any>(this.todosUrl, todo);
     }
 
-    updateTodo(key: string, todo: Todo) {
-        return this.http.put<any>(`${this.todosUrl}/${key}`, todo);
+    updateTodo(id: string, todo: Todo) {
+        return this.http.put<any>(`${this.todosUrl}/${id}`, todo);
     }
 
-    removeTodo(key: string) {
-        return this.http.delete<any>(`${this.todosUrl}/${key}`);
+    removeTodo(id: string) {
+        return this.http.delete<any>(`${this.todosUrl}/${id}`);
     }
 }

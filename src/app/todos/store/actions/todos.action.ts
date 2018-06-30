@@ -32,6 +32,7 @@ export class CreateTodo implements Action {
 
 export class CreateTodoSuccess implements Action {
     readonly type = CREATE_TODO_SUCCESS;
+    constructor(public payload: Todo) {}
 }
 
 // update todo
@@ -45,6 +46,7 @@ export class UpdateTodo implements Action {
 
 export class UpdateTodoSuccess implements Action {
     readonly type = UPDATE_TODO_SUCCESS;
+    constructor(public payload: Todo) {}
 }
 
 // remove Todo
@@ -53,11 +55,12 @@ export const REMOVE_TODO_SUCCESS = '[Todos] Remove Todo Success';
 
 export class RemoveTodo implements Action {
     readonly type = REMOVE_TODO;
-    constructor(public payload: string) {}
+    constructor(public payload: Todo) {}
 }
 
 export class RemoveTodoSuccess implements Action {
     readonly type = REMOVE_TODO_SUCCESS;
+    constructor(public payload: Todo) {}
 }
 
 // action types

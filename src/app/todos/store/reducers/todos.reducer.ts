@@ -39,6 +39,37 @@ export function reducer(state = initialState, action: fromTodos.TodosAction): To
                 loaded: false
             };
         }
+
+        case fromTodos.CREATE_TODO_SUCCESS: {
+            return {
+                ...state,
+                list: [
+                    ...state.list,
+                    action.payload
+                ]
+            };
+        }
+
+        case fromTodos.UPDATE_TODO_SUCCESS: {
+            const list = state.list.map(todo => {
+                if (todo._id === action.payload._id) {
+                    return action.payload;
+                }
+                return todo;
+            });
+            return {
+                ...state,
+                list
+            };
+        }
+
+        case fromTodos.REMOVE_TODO_SUCCESS: {
+            const list = state.list.filter(todo => todo._id !== action.payload._id);
+            return {
+                ...state,
+                list
+            };
+        }
     }
 
     return state;

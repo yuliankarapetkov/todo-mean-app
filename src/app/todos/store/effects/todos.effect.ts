@@ -23,7 +23,7 @@ export class TodosEffect {
             return this.todosService
                 .getTodos()
                 .pipe(
-                    map(friends => new todoAction.LoadTodosSuccess(friends)),
+                    map(todos => new todoAction.LoadTodosSuccess(todos)),
                     catchError(error => of(new todoAction.LoadTodosFail(error)))
                 );
         }));
@@ -37,7 +37,7 @@ export class TodosEffect {
                 return this.todosService
                     .addTodo(todo)
                     .pipe(
-                        map(() => new todoAction.CreateTodoSuccess())
+                        map(createdTodo => new todoAction.CreateTodoSuccess(createdTodo))
                         // catch error
                     );
             })
@@ -49,11 +49,10 @@ export class TodosEffect {
         .pipe(
             map((action: todoAction.UpdateTodo) => action.payload),
             switchMap((todo: Todo) => {
-                const { key, ...todoToUpdate } = todo;
                 return this.todosService
-                    .updateTodo(key, todoToUpdate)
+                    .updateTodo(todo._id, todo)
                     .pipe(
-                        map(() => new todoAction.UpdateTodoSuccess())
+                        map(() => new todoAction.UpdateTodoSuccess(todo))
                         // catch error
                     );
             })
@@ -64,11 +63,11 @@ export class TodosEffect {
         .ofType(todoAction.REMOVE_TODO)
         .pipe(
             map((action: todoAction.RemoveTodo) => action.payload),
-            switchMap((key: string) => {
+            switchMap((todo: Todo) => {
                 return this.todosService
-                    .removeTodo(key)
+                    .removeTodo(todo._id)
                     .pipe(
-                        map(() => new todoAction.RemoveTodoSuccess())
+                        map(() => new todoAction.RemoveTodoSuccess(todo))
                     );
             })
         );

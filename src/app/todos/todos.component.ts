@@ -29,7 +29,7 @@ export class TodosComponent implements OnInit {
     }
 
     onRemoveTodo(todo: Todo) {
-        this.store.dispatch(new fromStore.RemoveTodo(todo.key));
+        this.store.dispatch(new fromStore.RemoveTodo(todo));
     }
 
     ngOnInit() {
