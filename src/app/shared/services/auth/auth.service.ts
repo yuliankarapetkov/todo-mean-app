@@ -13,7 +13,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: SharedModule
 })
 export class AuthService {
-    readonly authUrl = `${environment.apiUrl}/auth`;
+    private readonly authUrl = `${environment.apiUrl}/auth`;
 
     constructor(
         private angularFire: AngularFireAuth,

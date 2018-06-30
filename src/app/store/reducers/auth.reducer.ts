@@ -38,3 +38,4 @@ export function authReducer(state = initialState, action: fromAuth.AuthAction): 
 }
 
 export const getIsAuthenticated = (state: AuthState) => state.isAuthenticated;
+export const getToken = (state: AuthState) => state.token;

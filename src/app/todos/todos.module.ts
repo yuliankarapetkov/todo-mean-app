@@ -11,6 +11,10 @@ import { EffectsModule } from '@ngrx/effects';
 import { reducers } from './store/reducers';
 import { effects } from './store/effects';
 
+// Interceptors
+import { AuthInterceptor } from '../shared/interceptors/auth/auth.interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
 @NgModule({
     declarations: [
         TodosComponent
@@ -20,6 +24,9 @@ import { effects } from './store/effects';
         TodosRoutingModule,
         StoreModule.forFeature('todoManager', reducers),
         EffectsModule.forFeature(effects)
-    ]
+    ],
+    providers: [
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    ],
 })
 export class TodosModule { }

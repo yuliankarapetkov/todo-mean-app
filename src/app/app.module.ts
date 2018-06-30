@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { MetaReducer, StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -19,6 +20,9 @@ import { SharedModule } from './shared/shared.module';
 
 // Components
 import { AppComponent } from './app.component';
+
+// Interceptors
+import { AuthInterceptor } from './shared/interceptors/auth/auth.interceptor';
 
 // Store
 import { CustomSerializer, reducers } from './store/reducers';
