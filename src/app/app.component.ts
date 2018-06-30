@@ -22,7 +22,6 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.store.dispatch(new fromStore.GetIsAuthenticated());
         this.isAuthenticated$ = this.store.select(fromStore.getIsAuthenticated);
     }
 }

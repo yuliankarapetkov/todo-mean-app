@@ -2,9 +2,15 @@ import { Action } from '@ngrx/store';
 
 // sign in user anonymously
 export const SIGN_IN_USER_ANONYMOUSLY = '[Auth] Sign In User Anonymously';
+export const SIGN_IN_USER_ANONYMOUSLY_SUCCESS = '[Auth] Sign In User Anonymously Success';
 
 export class SignInUserAnonymously implements Action {
     readonly type = SIGN_IN_USER_ANONYMOUSLY;
+}
+
+export class SignInUserAnonymouslySuccess implements Action {
+    readonly type = SIGN_IN_USER_ANONYMOUSLY_SUCCESS;
+    constructor(public payload: any) {}
 }
 
 // sign out user
@@ -14,24 +20,8 @@ export class SignOutUser implements Action {
     readonly type = SIGN_OUT_USER;
 }
 
-// get is authenticated
-export const GET_IS_AUTHENTICATED = '[Auth] Get Is Authenticated';
-
-export class GetIsAuthenticated implements Action {
-    readonly type = GET_IS_AUTHENTICATED;
-}
-
-// set is authenticated
-export const SET_IS_AUTHENTICATED = '[Auth] Set Is Authenticated';
-
-export class SetIsAuthenticated implements Action {
-    readonly type = SET_IS_AUTHENTICATED;
-    constructor(public payload: boolean) {}
-}
-
 // action types
 export type AuthAction =
     | SignInUserAnonymously
-    | SignOutUser
-    | GetIsAuthenticated
-    | SetIsAuthenticated;
+    | SignInUserAnonymouslySuccess
+    | SignOutUser;

@@ -6,13 +6,18 @@ import { fromPromise } from 'rxjs/internal/observable/fromPromise';
 import { AngularFireAuth } from 'angularfire2/auth';
 
 import { SharedModule } from '../../shared.module';
+import { environment } from '../../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: SharedModule
 })
 export class AuthService {
+    readonly authUrl = `${environment.apiUrl}/auth`;
+
     constructor(
-        private angularFire: AngularFireAuth
+        private angularFire: AngularFireAuth,
+        private http: HttpClient
     ) { }
 
     get user() {
@@ -23,8 +28,12 @@ export class AuthService {
         return this.angularFire.authState.pipe(map(user => !!user));
     }
 
-    signInAnonymously() {
+    signInAnonymouslyOld() {
         return fromPromise(this.angularFire.auth.signInAnonymously());
+    }
+
+    signInAnonymously() {
+        return this.http.post<any>(`${this.authUrl}/signup`, {});
     }
 
     signOut() {

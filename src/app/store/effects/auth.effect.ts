@@ -24,55 +24,22 @@ export class AuthEffect {
                 return this.authService
                     .signInAnonymously()
                     .pipe(
-                        map(() => new authAction.GetIsAuthenticated()),
-                        // catchError(error => of(new authAction.SetError()))
+                        map(payload => new authAction.SignInUserAnonymouslySuccess(payload))
                     );
             })
+        );
+
+    @Effect()
+    signInUserAnonymouslySuccess$ = this.actions$
+        .ofType(authAction.SIGN_IN_USER_ANONYMOUSLY_SUCCESS)
+        .pipe(
+            map(() => new fromRouter.Go({ path: ['/todos'] }))
         );
 
     @Effect()
     signOutUser$ = this.actions$
         .ofType(authAction.SIGN_OUT_USER)
         .pipe(
-            switchMap(() => {
-                return this.authService
-                    .signOut()
-                    .pipe(
-                        map(() => new authAction.GetIsAuthenticated()),
-                        // catchError(error => of(new authAction.SetError()))
-                    );
-            })
-        );
-
-    @Effect()
-    getIsAuthenticated$ = this.actions$
-        .ofType(authAction.GET_IS_AUTHENTICATED)
-        .pipe(
-            switchMap(() => {
-                return this.authService
-                    .isAuthenticaated
-                    .pipe(
-                        map((isAuthenticated: boolean) => new authAction.SetIsAuthenticated(isAuthenticated)),
-                        // catchError(error => of(new authAction.SetError()))
-                    );
-            })
-        );
-
-    @Effect()
-    setIsAuthenticated$ = this.actions$
-        .ofType(authAction.SET_IS_AUTHENTICATED)
-        .pipe(
-            map((action: authAction.SetIsAuthenticated) => action.payload),
-            map(isAuthenticated => {
-               if (isAuthenticated) {
-                   return new fromRouter.Go({
-                       path: ['/todos']
-                   });
-               }  else {
-                   return new fromRouter.Go({
-                       path: ['/auth']
-                   });
-               }
-            })
+            map(() => new fromRouter.Go({ path: ['/auth'] }))
         );
 }
