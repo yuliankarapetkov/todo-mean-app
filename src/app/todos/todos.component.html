@@ -2,7 +2,7 @@
     <div class="todos__header">
         <div class="container">
             <todos-todo-form
-                [isDisabled]="(todos$ | async) === undefined"
+                [isDisabled]="isLoading$ | async"
                 (addTodo)="onAddTodo($event)">
             </todos-todo-form>
         </div>
@@ -10,8 +10,8 @@
 
     <div class="todos__content container">
         <div  class="todos-list">
-            <div *ngIf="todos$ | async as todos; else loading">
-                <div *ngIf="todos.length">
+            <div *ngIf="!(isLoading$ | async); else loading">
+                <div *ngIf="(todos$ | async).length">
                     <todos-todo-item
                         *ngFor="let item of todos$ | async"
                         [item]="item"
@@ -20,7 +20,7 @@
                     </todos-todo-item>
                 </div>
 
-                <div *ngIf="!todos.length" class="todos-list__empty">
+                <div *ngIf="!(todos$ | async).length" class="todos-list__empty">
                     <p>
                         No tasks here. You are either a great doer, or a great procrastinator.
                     </p>

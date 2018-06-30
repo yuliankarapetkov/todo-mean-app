@@ -15,6 +15,7 @@ import { Todo } from './shared/models';
 })
 export class TodosComponent implements OnInit {
     todos$: Observable<Todo[]>;
+    isLoading$: Observable<boolean>;
 
     constructor(
         private store: Store<fromStore.TodoManagerState>
@@ -34,6 +35,8 @@ export class TodosComponent implements OnInit {
 
     ngOnInit() {
         this.store.dispatch(new fromStore.LoadTodos());
+
         this.todos$ = this.store.select(fromStore.getTodos);
+        this.isLoading$ = this.store.select(fromStore.getTodosLoading);
     }
 }
