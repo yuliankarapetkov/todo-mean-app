@@ -4,6 +4,13 @@
 /dist
 /tmp
 /out-tsc
+/backend/public
+
+# files for prod
+/backend/Procfile
+/backend/app.json
+/backend/package.json
+
 
 # dependencies
 /node_modules

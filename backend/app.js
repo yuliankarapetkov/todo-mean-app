@@ -1,5 +1,6 @@
 const express = require('express'),
-    app = express();
+    app = express(),
+    path = require('path');
 
 // External Dependencies
 const mongoose = require('mongoose'),
@@ -22,6 +23,7 @@ mongoose
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use('/', express.static(path.join(__dirname, 'public')));
 
 // CORS
 app.use((req, res, next) => {
@@ -45,5 +47,8 @@ const checkAuth = require('./middleware/check-auth');
 // Routing Config
 app.use('/api/auth', authRoutes)
 app.use('/api/todos', checkAuth, todoRoutes);
+app.use((req, res, next) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'))
+});
 
 module.exports = app;
