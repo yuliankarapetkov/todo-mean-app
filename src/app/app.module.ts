@@ -21,7 +21,7 @@ import { CustomSerializer, reducers } from './store/reducers';
 import { effects } from './store/effects';
 import { localStorageSync } from 'ngrx-store-localstorage';
 
-function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
+export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
     return localStorageSync({
         keys: ['auth'],
         rehydrate: true
