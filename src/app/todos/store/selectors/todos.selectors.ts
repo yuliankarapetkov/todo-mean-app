@@ -9,6 +9,11 @@ export const getTodosState = createSelector(
     (state: fromFeature.TodoManagerState) => state.todos
 );
 
-export const getTodos = createSelector(getTodosState, fromTodos.getTodos);
+export const getTodosEntities = createSelector(getTodosState, fromTodos.getTodosEntities);
 export const getTodosLoaded = createSelector(getTodosState, fromTodos.getTodosLoaded);
 export const getTodosLoading = createSelector(getTodosState, fromTodos.getTodosLoading);
+
+export const getTodos = createSelector(
+    getTodosEntities,
+    (entities) => Object.keys(entities).map(id => entities[id])
+);

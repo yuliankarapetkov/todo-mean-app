@@ -2,13 +2,13 @@ import * as fromTodos from '../actions/todos.action';
 import { Todo } from '../../shared/models';
 
 export interface TodosState {
-    list: Todo[];
+    entities: { [id: string]: Todo };
     loaded: boolean;
     loading: boolean;
 }
 
 export const initialState: TodosState = {
-    list: undefined,
+    entities: {},
     loaded: false,
     loading: false,
 };
@@ -23,12 +23,21 @@ export function reducer(state = initialState, action: fromTodos.TodosAction): To
         }
 
         case fromTodos.LOAD_TODOS_SUCCESS: {
-            const list = action.payload;
+            const todos = action.payload,
+                entities = todos.reduce((entitiesIn: { [id: number]: Todo }, todo: Todo) => {
+                return {
+                    ...entitiesIn,
+                    [todo._id]: todo
+                };
+            }, {
+                ...state.entities
+            });
+
             return {
                 ...state,
                 loading: false,
                 loaded: true,
-                list
+                entities
             };
         }
 
@@ -40,34 +49,27 @@ export function reducer(state = initialState, action: fromTodos.TodosAction): To
             };
         }
 
-        case fromTodos.CREATE_TODO_SUCCESS: {
-            return {
-                ...state,
-                list: [
-                    ...state.list,
-                    action.payload
-                ]
-            };
-        }
-
+        case fromTodos.CREATE_TODO_SUCCESS:
         case fromTodos.UPDATE_TODO_SUCCESS: {
-            const list = state.list.map(todo => {
-                if (todo._id === action.payload._id) {
-                    return action.payload;
-                }
-                return todo;
-            });
+            const todo = action.payload,
+                entities = {
+                    ...state.entities,
+                    [todo._id]: todo
+                };
+
             return {
                 ...state,
-                list
+                entities
             };
         }
 
         case fromTodos.REMOVE_TODO_SUCCESS: {
-            const list = state.list.filter(todo => todo._id !== action.payload._id);
+            const todo = action.payload,
+                { [todo._id]: removedTodo, ...entities } = state.entities;
+
             return {
                 ...state,
-                list
+                entities
             };
         }
     }
@@ -75,6 +77,6 @@ export function reducer(state = initialState, action: fromTodos.TodosAction): To
     return state;
 }
 
-export const getTodos = (state: TodosState) => state.list;
+export const getTodosEntities = (state: TodosState) => state.entities;
 export const getTodosLoading = (state: TodosState) => state.loading;
 export const getTodosLoaded = (state: TodosState) => state.loaded;
